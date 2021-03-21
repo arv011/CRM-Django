@@ -26,7 +26,6 @@ from pathlib import Path
 
 DEBUG = False
 SECRET_KEY = '3i%r5(mws2ik)x^=v^es!501x9ca$tzw(spm4ki)0$7dgu(_s!'
-
 ALLOWED_HOSTS = ['crm-by-arv.herokuapp.com', '127.0.0.1']
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
