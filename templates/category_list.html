@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="text-gray-600 body-font">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="flex flex-col text-center w-full mb-20 border-b border-gray-200">
+        <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">Categories</h1>
+        <p class="lg:w-2/3 mx-auto leading-relaxed text-base mb-10 ">HERE ITS ALL CATEGORIES</p>
+
+        {% if request.user.is_organiser %}
+          <div class="mb-4"><a href="{% url 'leads:create-category' %}" class="hover:text-blue-500 text-gray-700 mb-4">Create new category</a></div>
+        {% endif %}
+      </div>
+      <div class="lg:w-2/3 w-full mx-auto overflow-auto">
+        <table class="table-auto w-full text-left whitespace-no-wrap">
+          <thead>
+            <tr>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl text-center">NAME</th>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 text-center">LEAD COUNT</th>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 text-center"></th>
+              <!-- <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Storage</th>
+              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Price</th>
+              <th class="w-10 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"></th> -->
+            </tr>
+          </thead>
+          
+          
+          <tbody>
+            <tr>
+                <td class="px-4 py-3 text-center" ><a href="{% url 'leads:Home'%}" class="hover:text-blue-500">unassigned_lead_count</a></td>
+                <td class="px-4 py-3 text-center">{{unassigned_lead_count }}</td>
+            </tr>
+            {% for category in Category_count %}
+              <tr>
+                <td class="px-4 py-3 text-center "> <a href="{% url 'leads:categorydetails' category.id %}" class="hover:text-blue-500">{{category.name}}</a></td>
+                <td class="px-4 py-3 text-center">{{ category.number }}</td>
+                <!-- <td class="px-4 py-3 text-center"><a href=""></a> / </td> -->
+                <!-- <td class="px-4 py-3">15 GB</td>
+                <td class="px-4 py-3 text-lg text-gray-900">Free</td> -->
+
+              </tr>
+            {% endfor %}
+          </tbody>
+          
+          
+        </table>
+      </div>
+    </div>
+  </section>
+{% endblock content %}
