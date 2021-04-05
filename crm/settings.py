@@ -31,8 +31,8 @@ ALLOWED_HOSTS = ['crm-by-arv.herokuapp.com', '127.0.0.1']
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "arvindshrivastava1919@gmail.com"
-EMAIL_HOST_PASSWORD = "arv@11111"
+EMAIL_HOST_USER = "ypur email"
+EMAIL_HOST_PASSWORD = "yourpassword"
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
