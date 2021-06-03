@@ -24,7 +24,7 @@ from pathlib import Path
 # environ.Env.read_env()
 
 
-DEBUG = False
+DEBUG = True
 SECRET_KEY = '3i%r5(mws2ik)x^=v^es!501x9ca$tzw(spm4ki)0$7dgu(_s!'
 ALLOWED_HOSTS = ['crm-by-arv.herokuapp.com', '127.0.0.1']
 EMAIL_HOST = "smtp.gmail.com"
@@ -156,4 +156,8 @@ LOGOUT_REDIRECT_URL = '/'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 
 CRISPY_TEMPLATE_PACK = "tailwind"
-
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'

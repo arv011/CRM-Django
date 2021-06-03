@@ -9,7 +9,7 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 import random
 from django.conf import settings
-
+from .task import send_email_task
 class Signupview(generic.CreateView):
     template_name = 'registration/signup.html'
     form_class = CustomUserCreationform
@@ -94,12 +94,16 @@ class createleadview(organiserLoginRequiredMixin, generic.CreateView):
         
         form.save()
         user = self.request.user
-        send_mail(
-            subject="lead is successfully created",
-            message="go to leads and see all the leads ",
-            from_email= settings.EMAIL_HOST_USER,
-            recipient_list=[user.email]
-        )
+        subject="lead is successfully created"
+        message="go to leads and see all the leads"    
+        recipient_list=[user.email]
+        # send_mail(
+        #     subject="lead is successfully created",
+        #     message="go to leads and see all the leads ",
+        #     from_email= settings.EMAIL_HOST_USER,
+        #     recipient_list=[user.email]
+        # )
+        send_email_task(subject,message,recipient_list)
         return super(createleadview, self).form_valid(form)
 
 
@@ -280,12 +284,16 @@ class CreateAgentView(organiserLoginRequiredMixin, generic.CreateView):
         user.set_password(f'{random.randint(0,10000)}')
         user.save()
         Agent.objects.create(user=user, organisation= self.request.user.userprofile)
-        send_mail(
-            subject='you are invited to an agent',
-            message = f'you are added as agent in CRM SYSTEM hosted by Arv and your username id "{user.username}" to set your password go to login and then forgot password fill your email-id we will send you email shortly website Link: crm-by-arv.herokuapp.com',
-            from_email= settings.EMAIL_HOST_USER,
-            recipient_list = [user.email]
-        )
+        subject='you are invited to an agent'
+        message = f'you are added as agent in CRM SYSTEM hosted by Arv and your username id "{user.username}" to set your password go to login and then forgot password fill your email-id we will send you email shortly website Link: crm-by-arv.herokuapp.com'
+        recipient_list = [user.email]
+        # send_mail(
+        #     subject='you are invited to an agent',
+        #     message = f'you are added as agent in CRM SYSTEM hosted by Arv and your username id "{user.username}" to set your password go to login and then forgot password fill your email-id we will send you email shortly website Link: crm-by-arv.herokuapp.com',
+        #     from_email= settings.EMAIL_HOST_USER,
+        #     recipient_list = [user.email]
+        # )
+        send_email_task.delay(subject,message,recipient_list)
         return super(CreateAgentView, self).form_valid(form)
 
 class agentdetailview(organiserLoginRequiredMixin, generic.DetailView):
